@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mocha": "^9.2.0",
     "solc": "^0.8.11"
   }
 }
