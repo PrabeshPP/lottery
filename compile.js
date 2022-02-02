@@ -30,4 +30,4 @@ let output=JSON.parse(solc.compile(JSON.stringify(input)));
 
 //
 module.exports=output.contracts["lottery.sol"].Lottery;
-
+console.log(output.contracts["lottery.sol"].Lottery)
