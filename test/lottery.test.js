@@ -3,10 +3,11 @@ let Web3=require('web3');
 let provider=gancahe.provider();
 let {equals}=require('assert');
 let assert=require('assert');
+const { verify } = require('crypto');
 
 
 let {abi,evm}=require("../compile");
-const { verify } = require('crypto');
+
 let byteCode=evm.bytecode.object;
 
 let accounts;
@@ -22,7 +23,7 @@ beforeEach(async()=>{
 })
 
 describe("Lottery Contract",()=>{
-    it("should call the constructor to initialised the manager variable",()=>{
-        assert.equal("hi","hi");
+    it("Contract Successfully  deployed",()=>{
+        assert.ok(lottery.options.address);
     });
 })
