@@ -28,4 +28,6 @@ let input={
 
 let output=JSON.parse(solc.compile(JSON.stringify(input)));
 
+console.log(output.contracts);
+
 
