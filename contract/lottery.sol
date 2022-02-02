@@ -9,6 +9,12 @@ contract Lottery{
         manager=payable(msg.sender);
     }
 
+    modifier restricted(){
+        require(msg.sender==manager);
+        _;
+    }
+
+
     function enter()public payable {
         require(msg.value>0.1 ether ,"You have to pay more that 0.1 ether to participate in the lottery game");
         players.push(msg.sender);
@@ -21,7 +27,7 @@ contract Lottery{
 
     }
 
-    function PickWinner()external payable{
+    function PickWinner()external payable restricted{
         uint randomValue=randomGenerator() % players.length;
         payable(players[randomValue]).transfer(address(this).balance);
         players=new address[](0);
