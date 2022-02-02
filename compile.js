@@ -29,5 +29,5 @@ let input={
 let output=JSON.parse(solc.compile(JSON.stringify(input)));
 
 //
-module.exports=output.contracts["lottery.sol"].Lottery;
+module.exports=output.contracts["Lottery.sol"].Lottery;
 
