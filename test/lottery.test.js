@@ -34,7 +34,7 @@ describe("Lottery Contract",()=>{
         assert.strictEqual(manager,accounts[0]);
     });
 
-    it("Should call the enter fun. to store the address of the player",async()=>{
+    it("Should call the enter fun. to store the address of one player",async()=>{
         await lottery.methods.enter().send({from:accounts[0],
         value:web3.utils.toWei('0.2',
         'ether')});
@@ -43,7 +43,29 @@ describe("Lottery Contract",()=>{
             from:accounts[0]
         });
         assert.strictEqual(player[0],accounts[0]);
+        assert.strictEqual(1,player.length);
+
+    });
 
 
+    //! testing wether the enter function store multiple accounts or not
+    
+    it("Should the enter function to store the multiple address",async()=>{
+     for(let i=0;i<3;++i){
+        await lottery.methods.enter().send({
+            from:accounts[i],
+            value:web3.utils.toWei('0.2','ether')
+        });
+
+     }
+
+     let player=await lottery.methods.getPlayers().call({
+         from:accounts[0]
+     })
+
+     for(let i=0;i<3;++i){
+         assert.strictEqual(player[i],accounts[i]);
+     }
+     assert.strictEqual(3,player.length);    
     })
 })
