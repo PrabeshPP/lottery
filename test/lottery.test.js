@@ -116,7 +116,11 @@ describe("Lottery Contract",()=>{
         const differencebalance=finalBalance-initalBalance;
         assert(differencebalance>web3.utils.toWei("1.8","ether"));
         
+    let player=await lottery.methods.getPlayers().call({
+        from:accounts[0]
+    });
 
+    assert.strictEqual(player.length,0);
 
     })
 })
