@@ -1,12 +1,13 @@
 let gancahe=require('ganache-cli')
 let Web3=require('web3');
 let provider=gancahe.provider();
-let {equal}=require('assert');
+let {strictEqual}=require('assert');
 let assert=require('assert');
 const { verify } = require('crypto');
 
 
 let {abi,evm}=require("../compile");
+const { it } = require('mocha');
 
 let byteCode=evm.bytecode.object;
 
@@ -30,6 +31,19 @@ describe("Lottery Contract",()=>{
 
     it("The manager address should be equal to the one who deployed the contract",async()=>{
         const manager=await lottery.methods.manager().call();
-        assert.equal(manager,accounts[0]);
+        assert.strictEqual(manager,accounts[0]);
+    });
+
+    it("Should call the enter fun. to store the address of the player",async()=>{
+        await lottery.methods.enter().send({from:accounts[0],
+        value:web3.utils.toWei('0.2',
+        'ether')});
+
+        const player=await lottery.methods.getPlayers().call({
+            from:accounts[0]
+        });
+        assert.strictEqual(player[0],accounts[0]);
+
+
     })
 })
