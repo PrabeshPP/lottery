@@ -49,7 +49,7 @@ describe("Lottery Contract",()=>{
 
 
     //! testing wether the enter function store multiple accounts or not
-    
+
     it("Should the enter function to store the multiple address",async()=>{
      for(let i=0;i<3;++i){
         await lottery.methods.enter().send({
@@ -67,5 +67,20 @@ describe("Lottery Contract",()=>{
          assert.strictEqual(player[i],accounts[i]);
      }
      assert.strictEqual(3,player.length);    
+    })
+
+    it("requires a minimum amount of ether to enter into the lottery ",async()=>{
+        try{
+            await lottery.methods.enter().send({
+                from:accounts[0],
+                value:0
+            });
+            assert(false);
+
+        }catch(err){
+
+            assert(err);
+        }
+        
     })
 })
