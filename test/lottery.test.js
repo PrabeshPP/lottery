@@ -86,8 +86,8 @@ describe("Lottery Contract",()=>{
 
     it("only the owner of the contract should be able to call the lottery contract",async()=>{
         try{
-            let winner=await lottery.methods.pickWinner().call({
-                from:accounts[1]
+            let winner=await lottery.methods.PickWinner().send({
+                from:accounts[1],
             })
             assert(false);
 
