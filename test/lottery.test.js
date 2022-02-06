@@ -95,5 +95,28 @@ describe("Lottery Contract",()=>{
             assert(err);
 
         }
+    }),
+
+    it("sends money to the winner account and resets the players array",async()=>{
+        await lottery.methods.enter().send({
+            from:accounts[0],
+            value:web3.utils.toWei("2","ether")
+        });
+
+        const initalBalance=await web3.eth.getBalance(accounts[0]);
+
+        
+
+        await lottery.methods.PickWinner().send({
+            from:accounts[0]
+        })
+
+        const finalBalance=await web3.eth.getBalance(accounts[0]);
+
+        const differencebalance=finalBalance-initalBalance;
+        assert(differencebalance>web3.utils.toWei("1.8","ether"));
+        
+
+
     })
 })
