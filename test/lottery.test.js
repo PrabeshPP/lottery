@@ -82,5 +82,18 @@ describe("Lottery Contract",()=>{
             assert(err);
         }
         
+    }),
+
+    it("only the owner of the contract should be able to call the lottery contract",async()=>{
+        try{
+            let winner=await lottery.methods.pickWinner().call({
+                from:accounts[1]
+            })
+            assert(false);
+
+        }catch(err){
+            assert(err);
+
+        }
     })
 })
